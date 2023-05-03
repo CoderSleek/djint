@@ -1,41 +1,38 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
-// import { FaHeart } from "react-icons/fa";
-// {/* <FontAwesomeIcon icon="fa-light fa-heart" style={{color: "#000000",}} /> */}
 
-// function Post({ post }) {
-//   const [liked, setLiked] = useState(post.liked);
+const Post = ({ post }) => {
+  const [liked, setLiked] = useState(false);
 
-//   const handleLike = () => {
-//     setLiked(!liked);
+  const toggleLiked = () => {
+    setLiked(!liked);
+    // Make a call to the backend to update the like status in the database
+  };
 
-//     // Update database here
-//   };
-
-//   return (
-//     <div className="post">
-//       <div className="post-image">
-//         <img src={post.image} alt={post.title} />
-//       </div>
-//       <div className="post-content">
-//         <h2>{post.title}</h2>
-//         <p>{post.timings}</p>
-//         <p>{post.cost}</p>
-//         <button onClick={handleLike}>
-//           {liked ? 'Unlike' : 'Like'}
-//         </button>
-//       </div>
-//     </div>
-//   );
-// }
-
+  return (
+    <Container>
+      <Image src={post.image} alt={post.title} />
+      <div style={{ 'marginLeft': '20px' }}>
+        <Title>{post.title}</Title>
+        <Timings>{post.timings}</Timings>
+        <Cost>{post.cost}</Cost>
+      </div>
+      <HeartIcon className={liked ? 'fa fa-heart' : 'fa fa-heart-o'}
+        liked={liked}
+        onClick={toggleLiked} />
+    </Container>
+  );
+};
 
 const Container = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 100px 1fr auto;
   align-items: center;
   padding: 20px;
   border-bottom: 1px solid #ddd;
-  background-color: yellow;
+  & > *:last-child {
+    justify-self: end;
+  }
 `;
 
 const Image = styled.img`
@@ -48,6 +45,7 @@ const Image = styled.img`
 const Title = styled.h2`
   font-size: 24px;
   font-weight: 600;
+  margin-top: 0;
   margin-bottom: 5px;
 `;
 
@@ -67,31 +65,8 @@ const HeartIcon = styled.i`
   color: ${(props) => (props.liked ? "hotpink" : "#ccc")};
   cursor: pointer;
   margin-left: auto;
-  &:hover {color: ${({liked}) => (liked ? 'pink' : 'gray')}};
+  &:hover {color: ${({ liked }) => (liked ? 'pink' : 'gray')}};
 `;
-
-const Post = ({ post }) => {
-  const [liked, setLiked] = useState(false);
-
-  const toggleLiked = () => {
-    setLiked(!liked);
-    // Make a call to the backend to update the like status in the database
-  };
-
-  return (
-    <Container>
-      <Image src={post.image} alt={post.title} />
-      <div>
-        <Title>{post.title}</Title>
-        <Timings>{post.timings}</Timings>
-        <Cost>{post.cost}</Cost>
-      </div>
-      <HeartIcon className={liked ? 'fa fa-heart' : 'fa fa-heart-o'}
-      liked={liked}
-      onClick={toggleLiked}/>
-    </Container>
-  );
-};
 
 export default Post;
 

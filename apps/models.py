@@ -17,6 +17,13 @@ class UserManager(BaseUserManager):
         except self.model.DoesNotExist:
             return None
 
+    def get_user_id_by_name(self, username):
+        try:
+            user = self.model.objects.get(username=username)
+            return user.id
+        except self.model.DoesNotExist:
+            return None
+
 
 class User(AbstractBaseUser):
     username = models.CharField(max_length=100, unique=True)
@@ -34,8 +41,8 @@ class User(AbstractBaseUser):
 
 
 class EventManager(models.Manager):
-    def create_event(userid, title, description, cost, timing, image=None):
-        image_data = None
+    def create_event(userid, title, description, cost, timing, image):
+        print('here2')
         if image:
             with open('image.jpg', 'rb') as f:
                 image_data = f.read()

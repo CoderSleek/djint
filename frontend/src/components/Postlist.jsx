@@ -31,7 +31,12 @@ function PostsList() {
   ];
 
   const List = styled.div`
-    width: 70%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+    max-width: 900px;
+    width: 60%;
     margin-left: auto;
     margin-right: auto;
   `;
@@ -39,10 +44,10 @@ function PostsList() {
   return (
     <List className='posts-list'>
       {posts.map((post) => (
-      <Post key={post.id} post={post} />
-    ))}
+        <Post key={post.id} post={post} />
+      ))}
     </List>
-  );  
+  );
 }
 
 export default PostsList;

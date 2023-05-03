@@ -21,7 +21,8 @@ from . import views
 urlpatterns = [
     path('login/', views.login_view, name='login'),
     path('signup/', views.signup_view, name='signup'),
-    path('logout/', views.logout_view, name='logout'),
-    path('', views.home_view, name='home'),
-    path('r/', views.r, name='r')
+    # path('logout/', views.logout_view, name='logout'),
+    path('getalldata/', views.getalldata, name='getalldata'),
+    path('newevent/', views.newevent, name='newevent')
+
 ]
