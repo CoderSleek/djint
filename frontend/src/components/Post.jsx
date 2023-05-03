@@ -13,7 +13,6 @@ const Post = ({ post }) => {
   const formattedDate = `${hours}:${minutes} ${day}-${month}-${year}`;
   const toggleLiked = () => {
     setLiked(!liked);
-    // Make a call to the backend to update the like status in the database
   };
 
   return (
