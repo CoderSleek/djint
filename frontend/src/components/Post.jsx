@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
 // import { FaHeart } from "react-icons/fa";
-<FontAwesomeIcon icon="fa-light fa-heart" style={{color: "#000000",}} />
+// {/* <FontAwesomeIcon icon="fa-light fa-heart" style={{color: "#000000",}} /> */}
 
 // function Post({ post }) {
 //   const [liked, setLiked] = useState(post.liked);
@@ -62,7 +62,7 @@ const Cost = styled.div`
   color: #333;
 `;
 
-const HeartIcon = styled(FaHeart)`
+const HeartIcon = styled.i`
   color: ${(props) => (props.liked ? "#ff69b4" : "#ccc")};
   cursor: pointer;
   margin-left: auto;
@@ -84,7 +84,8 @@ const Post = ({ post }) => {
         <Timings>{post.timings}</Timings>
         <Cost>{post.cost}</Cost>
       </div>
-      <HeartIcon onClick={toggleLiked} liked={liked} />
+      {/* <HeartIcon onClick={toggleLiked} liked={liked} /> */}
+      <HeartIcon className='fa fa-heart' liked={liked} onClick={toggleLiked}/>
     </Container>
   );
 };
