@@ -26,6 +26,11 @@ main
 - Go to fronted directory and install all the dependencies via 'node install'
 - Run react app in dev mode using 'npm start' it will start on port 3000
 
+## Images of the app
+- ![Homepage]("C:\Users\user\Desktop\web.png")
+- ![alt text](http://url/to/img.png)
+- ![alt text](http://url/to/img.png)
+
 
 ## Features yet to be implements
 - user event like changes in database. database and methods are setup though
