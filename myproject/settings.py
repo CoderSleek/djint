@@ -38,8 +38,8 @@ SECRET_KEY = 'django-insecure-2)#u51zgzx8a9ws4iizirvc@ak5!bm_0h86tgk3it8-jr)(@os
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*', 'localhost']
+CORS_ORIGIN_ALLOW_ALL = True
 # Application definition
 
 INSTALLED_APPS = [
@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'apps'
+    'apps',
 ]
 
 MIDDLEWARE = [
@@ -60,7 +60,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'apps.loginsignup.middleware.JWTMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'apps.middleware.JWTMiddleware',
 ]
 
 ROOT_URLCONF = 'myproject.urls'
@@ -89,18 +90,18 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': ENVIRON['DB_NAME'],
-    #     'USER': ENVIRON['DB_USER'],
-    #     'PASSWORD': ENVIRON['DB_PASSWORD'],
-    #     'HOST': ENVIRON['DB_HOST'],
-    #     'PORT': '3306',
-    # }
-    "default": {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3'
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': ENVIRON['DB_NAME'],
+        'USER': ENVIRON['DB_USER'],
+        'PASSWORD': ENVIRON['DB_PASSWORD'],
+        'HOST': ENVIRON['DB_HOST'],
+        'PORT': '3306',
     }
+    # "default": {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3'
+    # }
 }
 
 
