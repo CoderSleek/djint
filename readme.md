@@ -27,7 +27,7 @@ main
 - Run react app in dev mode using 'npm start' it will start on port 3000
 
 ## Images of the app
-- ![Homepage]("C:\Users\user\Desktop\web.png")
+- ![Homepage](C://Users//user//Desktop//web.png)
 - ![alt text](http://url/to/img.png)
 - ![alt text](http://url/to/img.png)
 
