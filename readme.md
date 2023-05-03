@@ -19,7 +19,7 @@ main
 - install node 16.4 LTS
 - install MySQL on your machine, let it run on default port 3306
 - make changes to .env file as neccessary per your database name, password, schema etc.
-- To run the app first clone this github respository in an empty directory using 'git clone '
+- To run the app first clone this github respository in an empty directory using 'git clone https://github.com/CoderSleek/djint.git'
 - Go to the myproject folder containing requirements.txt then install all python requirements via 'pip install -r requirements.txt'
 - Then make migrations using 'python manage.py makemigrations', 'python manage.py makemigrations apps', 'python manage.py migrate'
 - Run django app using 'python manage.py runserver' it will run on port 8000
