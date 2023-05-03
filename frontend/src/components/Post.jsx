@@ -63,9 +63,10 @@ const Cost = styled.div`
 `;
 
 const HeartIcon = styled.i`
-  color: ${(props) => (props.liked ? "#ff69b4" : "#ccc")};
+  color: ${(props) => (props.liked ? "hotpink" : "white")};
   cursor: pointer;
   margin-left: auto;
+  &:hover ${({props}) => (props.liked ? 'pink' : 'gray')};
 `;
 
 const Post = ({ post }) => {
@@ -84,8 +85,9 @@ const Post = ({ post }) => {
         <Timings>{post.timings}</Timings>
         <Cost>{post.cost}</Cost>
       </div>
-      {/* <HeartIcon onClick={toggleLiked} liked={liked} /> */}
-      <HeartIcon className='fa fa-heart' liked={liked} onClick={toggleLiked}/>
+      <HeartIcon className={liked ? 'fa fa-heart' : 'fa fa-heart-o'}
+      liked={liked}
+      onClick={toggleLiked}/>
     </Container>
   );
 };
