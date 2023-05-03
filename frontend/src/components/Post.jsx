@@ -35,6 +35,7 @@ const Container = styled.div`
   align-items: center;
   padding: 20px;
   border-bottom: 1px solid #ddd;
+  background-color: yellow;
 `;
 
 const Image = styled.img`
@@ -63,10 +64,10 @@ const Cost = styled.div`
 `;
 
 const HeartIcon = styled.i`
-  color: ${(props) => (props.liked ? "hotpink" : "white")};
+  color: ${(props) => (props.liked ? "hotpink" : "#ccc")};
   cursor: pointer;
   margin-left: auto;
-  &:hover ${({props}) => (props.liked ? 'pink' : 'gray')};
+  &:hover {color: ${({liked}) => (liked ? 'pink' : 'gray')}};
 `;
 
 const Post = ({ post }) => {

@@ -3,6 +3,12 @@
 // import './index.css';
 // import App from './App';
 import reportWebVitals from './reportWebVitals';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Home from './Home';
+import Signup from './Signup';
+import Login from './Login';
 
 // const root = ReactDOM.createRoot(document.getElementById('root'));
 // root.render(
@@ -10,12 +16,6 @@ import reportWebVitals from './reportWebVitals';
 //     <App />
 //   </React.StrictMode>
 // );
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Home from './Home';
-import Signup from './Signup';
-import Login from './Login';
 
 ReactDOM.render(
   <Router>

@@ -1,7 +1,6 @@
-// PostsList.js
-
 import React from 'react';
 import Post from './Post';
+import styled from 'styled-components';
 
 function PostsList() {
   const posts = [
@@ -31,13 +30,19 @@ function PostsList() {
     },
   ];
 
+  const List = styled.div`
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+  `;
+
   return (
-    <div className="posts-list">
+    <List className='posts-list'>
       {posts.map((post) => (
-        <Post key={post.id} post={post} />
-      ))}
-    </div>
-  );
+      <Post key={post.id} post={post} />
+    ))}
+    </List>
+  );  
 }
 
 export default PostsList;
