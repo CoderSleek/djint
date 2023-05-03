@@ -34,8 +34,11 @@ function NewPost() {
                 credentials: 'include',
                 body: formData,
             });
-            const data = await response.json();
-            console.log(data);
+            
+            if(response.status===401){
+                window.location.href='/login';
+            }
+
         } catch (error) {
             console.error(error);
         }

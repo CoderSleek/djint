@@ -3,7 +3,14 @@ import styled from "styled-components";
 
 const Post = ({ post }) => {
   const [liked, setLiked] = useState(false);
+  const date = new Date(post.timing);
+  const hours = date.getHours().toString().padStart(2, '0');
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+  const day = date.getDate().toString().padStart(2, '0');
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const year = date.getFullYear().toString();
 
+  const formattedDate = `${hours}:${minutes} ${day}-${month}-${year}`;
   const toggleLiked = () => {
     setLiked(!liked);
     // Make a call to the backend to update the like status in the database
@@ -11,11 +18,12 @@ const Post = ({ post }) => {
 
   return (
     <Container>
-      <Image src={post.image} alt={post.title} />
+      <Image src={`data:image/jpeg;base64,${post.image}`} alt={post.title} />
       <div style={{ 'marginLeft': '20px' }}>
         <Title>{post.title}</Title>
-        <Timings>{post.timings}</Timings>
+        <Timings>{formattedDate}</Timings>
         <Cost>{post.cost}</Cost>
+        <Timings>{post.description}</Timings>
       </div>
       <HeartIcon className={liked ? 'fa fa-heart' : 'fa fa-heart-o'}
         liked={liked}

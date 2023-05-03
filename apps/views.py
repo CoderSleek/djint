@@ -7,6 +7,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 from .forms import EventForm
+import base64
 
 
 @csrf_exempt
@@ -80,53 +81,67 @@ def signup_view(request):
         return response
 
 
-def logout_view(request):
-    logout(request)
-    return redirect('login')
-
-
 @csrf_exempt
 def getalldata(request):
-    # token = getattr(request, 'jwt_token', None)
-    # if token:
-    #     return render(request, 'home.html', {'error_message': ""})
-    # else:
-    #     return redirect('login')
+    token = getattr(request, 'jwt_token', None)
+    response_dict = {'success': False}
 
-    return render(request, 'index.html')
+    if not token:
+        return JsonResponse({'success': False, 'errorMsg': 'token expired'}, status=401)
+    
+    datas = Event.objects.all()
+    final = []
+    for data in datas:
+        image = data.image
+        image_base64 = base64.b64encode(image).decode('utf-8')
+        packet = {
+            'userid': data.userid_id,
+            'eventid': data.id,
+            'title': data.title,
+            'description': data.description,
+            'cost': data.cost,
+            'timing': data.timing,
+            'image': image_base64
+        }
+        final.append(packet)
+
+    return JsonResponse({'success': True, 'data': final})
+
 
 @csrf_exempt
 def newevent(request):
     token = getattr(request, 'jwt_token', None)
+    response_dict = {'success': False}
 
     if not token:
-        return JsonResponse({'success': False, 'errorMsg': 'token expired'})
+        return JsonResponse({'success': False, 'errorMsg': 'token expired'}, status=401)
 
-    if request.method == 'POST':
-        form = EventForm(request.POST, request.FILES)
-        if form.is_valid():
-            # process the form data and uploaded file here
-            title = form.cleaned_data["title"]
-            description = form.cleaned_data["description"]
-            cost = form.cleaned_data["cost"]
-            timing = form.cleaned_data["timing"]
-            image = form.cleaned_data["image"]
+    if not request.method == 'POST':
+        return JsonResponse({'success': False, 'errorMsg': 'Invalid request type'})
 
-            if all([title, description, cost, timing, image]):
-                print('here')
-                userid = User.objects.get_user_id_by_name(token['name'])
-                print(userid, title, description, cost, timing, image)
-                Event.objects.create_event(
-                    userid=userid,
-                    title=title,
-                    description=description,
-                    cost=cost,
-                    timing=timing,
-                    image=image
-                )
+    form = EventForm(request.POST, request.FILES)
 
-            return JsonResponse({'success': True})
-    else:
-        form = EventForm()
-    
-    return JsonResponse({'success': False})
+    if not form.is_valid():
+        print(form)
+        response_dict['errorMsg'] = "Invalid data, add all data and check if it's valid"
+        return JsonResponse(response_dict)
+
+    # process the form data and uploaded file here
+    title = form.cleaned_data["title"]
+    description = form.cleaned_data["description"]
+    cost = form.cleaned_data["cost"]
+    timing = form.cleaned_data["timing"]
+    image = form.cleaned_data["image"]
+
+    user = User.objects.get(username=token['name'])
+    if not Event.objects.create_event(
+        user,
+        title,
+        description,
+        cost,
+        timing,
+        image
+        ):
+        return JsonResponse({'success': False}, status=500)
+
+    return JsonResponse({'success': True})

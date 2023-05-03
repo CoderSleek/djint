@@ -17,13 +17,6 @@ class UserManager(BaseUserManager):
         except self.model.DoesNotExist:
             return None
 
-    def get_user_id_by_name(self, username):
-        try:
-            user = self.model.objects.get(username=username)
-            return user.id
-        except self.model.DoesNotExist:
-            return None
-
 
 class User(AbstractBaseUser):
     username = models.CharField(max_length=100, unique=True)
@@ -41,20 +34,16 @@ class User(AbstractBaseUser):
 
 
 class EventManager(models.Manager):
-    def create_event(userid, title, description, cost, timing, image):
-        print('here2')
-        if image:
-            with open('image.jpg', 'rb') as f:
-                image_data = f.read()
-
+    def create_event(self, user, title, description, cost, timing, image):
         event = self.model(
-            userid=userid,
+            userid=user,
             title=title,
             description=description,
             cost=cost,
             timing=timing,
-            image=image_data
+            image=image.read()
         )
+
         event.save(using=self.db)
         return event
 
@@ -71,10 +60,12 @@ class Event(models.Model):
     userid = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=100, null=False)
     description = models.TextField(max_length=500, null=False)
-    cost = models.DecimalField(max_digits=5, decimal_places=2, null=False)
+    cost = models.DecimalField(max_digits=7, decimal_places=2, null=False)
     timing = models.DateTimeField(null=False)
     created_at = models.DateTimeField(auto_now_add=True, null=False)
     image = models.BinaryField(null=True, blank=True)
+
+    objects = EventManager()
 
     def __str__(self):
         return self.title

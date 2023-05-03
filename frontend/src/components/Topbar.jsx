@@ -13,17 +13,38 @@ function TopBar(props) {
     </>
   );
 
-  
-
   const renderLogoutButton = () => (
     <LogoutButton>Signout</LogoutButton>
   );
 
+    async function globalHandler(){
+      try{
+        const response = await fetch('http://localhost:8000/getalldata/', {credentials: 'include'});
+
+        if (!response.ok) return;
+        if(response.status===401){
+          window.location.href = '/login';
+          return;
+        }
+
+        const data = await response.json();
+        if(data['success']){
+          props.postHandler(data['data']);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    function userHandler(){
+      console.log('hello2');
+    }
+
   return (
     <TopBarContainer>
       <ButtonContainer>
-        <li><ButtonLink to="/">Global</ButtonLink></li>
-        {isLoggedIn && <li><UserButton to="/user">User</UserButton></li>}
+        <li><UserButton onClick={globalHandler}>Global</UserButton></li>
+        {isLoggedIn && <li><UserButton onClick={userHandler}>User</UserButton></li>}
       </ButtonContainer>
       <ButtonContainer className='sign'>
         {!isLoggedIn && <li>{renderLoginButton()}</li>}
@@ -77,8 +98,8 @@ const LogoutButton = styled.button`
 `;
 
 const UserButton = styled(ButtonLink)`
-  margin-left: 0;
-  margin-right: 0;
+  margin-left: 10px;
+  margin-right: 10px;
 `;
 
 export default TopBar;
