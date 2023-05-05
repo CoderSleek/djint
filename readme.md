@@ -1,4 +1,5 @@
 # Structure
+This Application is like a social media App where user can create and update new events.
 
 The project structure is as follows
 
@@ -23,6 +24,10 @@ main
 - Run django app using 'python manage.py runserver' it will run on port 8000
 - Go to fronted directory and install all the dependencies via 'node install'
 - Run react app in dev mode using 'npm start' it will start on port 3000
+
+# Features
+
+In the app the user can login or signup via a username and password, Validation of data and error handling is performed in backend to ensure correctness of App. It uses JWT for authentication and maintain integrity of data. The user can log in and create new posts, view other people posts and like the events. All data is stored in database for persistence.
 
 
 ## Features yet to be implements
