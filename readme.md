@@ -4,14 +4,14 @@ This Application is like a social media App where user can create and update new
 The project structure is as follows
 
 main
-- #### apps          contains all the project app code, views, urls
-- #### frontend      react folder contains all the javascript and component files
-- #### myproject     django settings, views and urls for the app
-- .env              env variables of the project
+- #### apps -         contains all the project app code, views, urls
+- #### frontend -     react folder contains all the javascript and component files
+- #### myproject -    django settings, views and urls for the app
+- .env -             env variables of the project
 - .gitignore
-- manage.py         django manage.py
+- manage.py -        django manage.py
 - readme.md
-- requirements.txt   python requirements
+- requirements.txt -  python requirements
 
 # Setup and installation
 - install python 3.10
